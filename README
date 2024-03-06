@@ -1,3 +1,17 @@
+# Not a Keylogger, Trust Me!
+
+This project is an academic spyware which captures keyboard input, saves it to a logfile,
+and delivers that log over a network connection. The target environment is Ubuntu 16.04 and older.
+The project would also work on newer systems if the user has sudo priveleges. 
+
+# How it works
+
+The user runs the server script on the target machine. The script gains root privileges using Pwnkit and
+detects a keyboard device using another shell script. After this initialization, the keylogger actively
+captures keyboard events and logs them to file. When the client script is executed, that script connects
+to the server by TCP and downloads the log file. 
+
+# How to use
 
 To run the server
 	1. cd server
